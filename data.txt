@@ -1,0 +1,11 @@
+Datos Jenkins proyectoJava
+
+cd2524cfee3d4cd0bd4f6d7430e854c9 
+
+http://localhost:8080
+
+Username:mart1n
+Password:123456
+Full name:martin
+E-mail: aomarttin@gmail.com
+

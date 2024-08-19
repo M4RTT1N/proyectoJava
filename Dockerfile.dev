@@ -1,0 +1,19 @@
+FROM maven:3.8.4-openjdk-11
+
+# Instalar herramientas adicionales si es necesario
+RUN apt-get update && apt-get install -y git
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar el archivo pom.xml (y otros archivos necesarios)
+COPY pom.xml ./
+
+# Descargar dependencias
+RUN mvn dependency:go-offline
+
+# Copiar el resto del código fuente
+COPY src ./src
+
+# Comando por defecto (puede ser anulado)
+CMD ["mvn", "test"]

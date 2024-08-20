@@ -26,6 +26,9 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                    jacoco(
+                        execPattern: 'target/jacoco.exec'
+                    )
                 }
             }
         }
@@ -43,11 +46,10 @@ pipeline {
     }
     
     post {
-        success {
-            echo 'Pipeline ejecutado exitosamente!'
-        }
-        failure {
-            echo 'El pipeline ha fallado.'
+        always {
+            emailext body: 'Se ha completado una ejecución del pipeline. Por favor, revisa los resultados.',
+                     subject: "Estado del Pipeline: ${currentBuild.fullDisplayName}",
+                     to: 'aomarttin@gmail.com'
         }
     }
 }

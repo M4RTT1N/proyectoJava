@@ -2,8 +2,9 @@ pipeline {
     agent any
     
     tools {
-        maven 'Maven 3.8.4'
+        maven 'Maven_3.8.4'
         jdk 'JDK11'
+        git 'Default'
     }
     
     stages {
@@ -26,9 +27,6 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                    jacoco(
-                        execPattern: 'target/jacoco.exec'
-                    )
                 }
             }
         }
@@ -47,7 +45,7 @@ pipeline {
     
     post {
         always {
-            emailext body: 'Se ha completado una ejecución del pipeline. Por favor, revisa los resultados.',
+            emailext body: "Se ha completado una ejecución del pipeline. Estado: ${currentBuild.result}",
                      subject: "Estado del Pipeline: ${currentBuild.fullDisplayName}",
                      to: 'aomarttin@gmail.com'
         }
